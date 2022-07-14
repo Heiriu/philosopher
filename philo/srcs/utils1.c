@@ -6,7 +6,7 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 14:29:12 by Thbierne          #+#    #+#             */
-/*   Updated: 2022/07/06 10:16:58 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/07/13 11:27:37 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,19 @@ char		*ft_strdup(const char *s1)
 
 void	ft_sleep(int ms)
 {
-	ms *= 1000;
+	long int time;
+
+	time = ms * 1000;
 	while (1)
 	{
-		if ((ms - 1000000) > 0)
+		if ((time - 1000000) > 0)
 		{
 			usleep(1000000);
-			ms -= 1000000;
+			time -= 1000000;
 		}
 		else
 		{
-			usleep(ms);
+			usleep(time);
 			break;
 		}
 	}

@@ -6,25 +6,26 @@
 #    By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/08 11:15:19 by thbierne          #+#    #+#              #
-#    Updated: 2022/06/17 14:42:37 by thbierne         ###   ########.fr        #
+#    Updated: 2022/07/14 09:50:22 by thbierne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRCS = srcs/main.c					\
-		srcs/utils0.c				\
-		srcs/utils1.c				\
-		srcs/init_list.c			\
-		srcs/routine.c				\
-		srcs/alloc_philo.c			\
-		srcs/time.c					\
+SRCS = srcs/main.c						\
+		srcs/ft_check_arg.c				\
+		srcs/utils0.c					\
+		srcs/utils1.c					\
+		srcs/print_add_delete_philo.c	\
+		srcs/routine.c					\
+		srcs/thread_management.c		\
+		srcs/time.c						\
 
 OBJS = $(SRCS:.c=.o)
 
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror -pthread
+CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread
 
 RM = rm -f
 
@@ -34,7 +35,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
 clean:
-	$(RM) srcs/*.o
+	$(RM) $(OBJS)
 
 fclean: clean
 	$(RM) $(NAME)

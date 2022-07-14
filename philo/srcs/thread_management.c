@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   alloc_philo.c                                      :+:      :+:    :+:   */
+/*   thread_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:48:32 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/17 11:57:27 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/07/13 10:38:26 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ t_master	*creat_list(t_master *master)
 	int 	i;
 
 	i = 1;
-	master->first = add_first_philo(i);
+	master->first = add_first_philo(i, master);
 	while (++i <= master->nbr_philo)
-		master->first = add_last_philo(master->first, i);
+		master->first = add_last_philo(master->first, i, master);
 	tmp = master->first;
 	while (tmp->next)
 		tmp = tmp->next;
@@ -28,7 +28,7 @@ t_master	*creat_list(t_master *master)
 	return (master);
 }
 
-t_master	*alloc_tab_list(t_master *master)
+t_master	*start_thread(t_master *master)
 {
 	t_philo	*now;
 
@@ -38,6 +38,19 @@ t_master	*alloc_tab_list(t_master *master)
 	while (now)
 	{
 		pthread_create(&now->philosopher, NULL, &routine, now);
+		now = now->next;
+	}
+	return (master);
+}
+
+t_master     *join_thread(t_master *master)
+{
+	t_philo *now;
+
+	now = master->first;
+	while (now)
+	{
+		pthread_join(now->philosopher, NULL);
 		now = now->next;
 	}
 	return (master);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_list.c                                        :+:      :+:    :+:   */
+/*   print_add_delete_philo.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 13:30:36 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/17 11:38:23 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/07/13 09:48:15 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	print_list(t_master *master)
 	}
 }
 
-t_philo	*add_first_philo(int nbr)
+t_philo	*add_first_philo(int nbr, t_master *master)
 {
 	t_philo	*new;
 	
@@ -34,12 +34,13 @@ t_philo	*add_first_philo(int nbr)
 	if (!new)
 		return (NULL);
 	new->philo_nbr = nbr;
+	new->master = master;
 	pthread_mutex_init(&new->r_fork, NULL);
 	new->next = NULL;
 	return (new);
 }
 
-t_philo	*add_last_philo(t_philo *philo, int nbr)
+t_philo	*add_last_philo(t_philo *philo, int nbr, t_master *master)
 {
 	t_philo	*new;
 	t_philo	*tmp;
@@ -48,6 +49,7 @@ t_philo	*add_last_philo(t_philo *philo, int nbr)
 	if (!new)
 		return (NULL);
 	new->philo_nbr = nbr;
+	new->master = master;
 	pthread_mutex_init(&new->r_fork, NULL);
 	new->next = NULL;
 	tmp = philo;
