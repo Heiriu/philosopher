@@ -6,7 +6,7 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 11:01:49 by thbierne          #+#    #+#             */
-/*   Updated: 2022/07/14 10:05:06 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/07/14 16:07:59 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo*)arg;
+	while (get_time_pass(philo->master->time) <= 100)
+	{
+
+	}
+	gettimeofday(&philo->master->time, NULL);
 	if (philo->philo_nbr % 2 != 0)
 		ft_sleep(1);
 	while(philo->master->death == 0)
 	{
 		philo_is_eating(philo);
-		printf("%ld %i take a nap\n", get_time_pass(philo->master->time), philo->philo_nbr);
-		ft_sleep(philo->master->tts);
 	}
 	return (0);
 }
@@ -39,4 +42,6 @@ void	philo_is_eating(t_philo *philo)
 	ft_sleep(philo->master->tte);
 	pthread_mutex_unlock(&philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
+	printf("%ld %i is taking a nap\n", get_time_pass(philo->master->time), philo->philo_nbr);
+	ft_sleep(philo->master->tts);
 }

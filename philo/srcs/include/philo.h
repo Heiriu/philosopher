@@ -6,7 +6,7 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 11:37:50 by thbierne          #+#    #+#             */
-/*   Updated: 2022/07/13 15:50:36 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/07/14 15:37:14 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ struct s_philo
 
 struct s_master
 {
-	t_philo 		*first;
+	t_philo 		*first; 
 	struct timeval	time;
 	int				nbr_philo;
 	int				ttd;
@@ -50,10 +50,12 @@ struct s_master
 	int				tts;
 	int				must_eat;
 	int				death;
+	int				time_eat;
 };
 
 /* ft_check_arg */
 
+t_master	*check_arg_philo(char **argv, int argc);
 t_master	*check_alloc_arg(t_master *arg, char **argv, int argc);
 
 /* print_add_delete_philo */
@@ -78,8 +80,8 @@ void		philo_is_eating_start(t_philo *philo);
 
 /* time */
 
-unsigned long	return_time(struct timeval *old, struct timeval *present);
 unsigned long	get_time_pass(struct timeval time);
+unsigned long	return_time(struct timeval *old, struct timeval *present);
 
 /* utils0 */
 
