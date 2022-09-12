@@ -5,36 +5,27 @@
 #                                                     +:+ +:+         +:+      #
 #    By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/03/08 11:15:19 by thbierne          #+#    #+#              #
-#    Updated: 2022/07/14 14:33:11 by thbierne         ###   ########.fr        #
+#    Created: 2022/08/29 15:39:57 by thbierne          #+#    #+#              #
+#    Updated: 2022/09/02 13:12:07 by thbierne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRCS = srcs/main.c								\
-		srcs/ft_check_arg.c						\
-		srcs/utils0.c							\
-		srcs/utils1.c							\
-		srcs/print_add_delete_philo.c			\
-		srcs/routine.c							\
-		srcs/thread_management.c				\
-		srcs/time.c								\
-
-OBJS_O = srcs/objs/main.o						\
-			srcs/objs/ft_check_arg.o			\
-			srcs/objs/utils0.o					\
-			srcs/objs/utils1.o					\
-			srcs/objs/print_add_delete_philo.o	\
-			srcs/objs/routine.o					\
-			srcs/objs/thread_management.o		\
-			srcs/objs/time.o					\
+SRCS = srcs/philo.c							\
+		srcs/philo_utils.c					\
+		srcs/time.c							\
+		srcs/ft_sleep.c						\
+		srcs/free.c							\
+		srcs/management_thread.c			\
+		srcs/alloc_philo.c					\
+		srcs/routine.c						\
+		srcs/display.c						\
+		srcs/alloc_arg.c					\
 
 OBJS = $(SRCS:.c=.o)
 
-D_OBJS = srcs/objs/
-
-CC = clang
+CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -pthread
 
@@ -44,10 +35,9 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
-	mv $(OBJS) $(D_OBJS)
 
 clean:
-	$(RM) $(OBJS_O)
+	$(RM) $(OBJS)
 
 fclean: clean
 	$(RM) $(NAME)

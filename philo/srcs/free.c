@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/30 11:29:12 by thbierne          #+#    #+#             */
-/*   Updated: 2022/09/07 13:21:12 by thbierne         ###   ########.fr       */
+/*   Created: 2022/08/30 13:07:59 by thbierne          #+#    #+#             */
+/*   Updated: 2022/09/07 13:20:14 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	get_time_pass(struct timeval time)
+t_philo	*free_philo(t_philo *philo)
 {
-	struct timeval	now;
+	t_philo	*cp;
 
-	gettimeofday(&now, NULL);
-	return (return_time(&time, &now));
+	if (philo)
+	{
+		cp = philo->next;
+		pthread_mutex_destroy(&philo->r_fork);
+		free (philo);
+		return (cp);
+	}
+	return (NULL);
 }
 
-int	return_time(struct timeval *o, struct timeval *p)
+void	free_master(t_master *master)
 {
-	return (((p->tv_sec - o->tv_sec) * 1000000 +(p->tv_usec - o->tv_usec))
-		/ 1000);
+	while (master->philo)
+		master->philo = free_philo(master->philo);
+	pthread_mutex_destroy(&master->aff);
+	free(master);
 }
